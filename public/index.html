@@ -22,10 +22,10 @@
                 <span>Secure & Encrypted</span>
             </div>
             <nav class="nav-tabs">
-                <button class="nav-tab active" data-tab="create">Create Payment</button>
-                <button class="nav-tab" data-tab="manage">Manage Payments</button>
-                <button class="nav-tab" data-tab="convert">Currency Converter</button>
-                <button class="nav-tab" data-tab="stats">Statistics</button>
+                <button class="nav-tab active" data-tab="create" onclick="switchTab('create')">Create Payment</button>
+                <button class="nav-tab" data-tab="manage" onclick="switchTab('manage')">Manage Payments</button>
+                <button class="nav-tab" data-tab="convert" onclick="switchTab('convert')">Currency Converter</button>
+                <button class="nav-tab" data-tab="stats" onclick="switchTab('stats')">Statistics</button>
             </nav>
         </header>
 
@@ -382,6 +382,7 @@
                     </div>
                 </div>
             </div>
+        </div>
         </div>
 
         <!-- Features Section -->

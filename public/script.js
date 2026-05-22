@@ -411,8 +411,11 @@ document.addEventListener('keydown', function(e) {
 // Tab navigation
 function initializeTabs() {
     const tabs = document.querySelectorAll('.nav-tab');
+    
     tabs.forEach(tab => {
-        tab.addEventListener('click', function() {
+        tab.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
             const tabId = this.getAttribute('data-tab');
             switchTab(tabId);
         });
@@ -429,8 +432,16 @@ function switchTab(tabId) {
     });
     
     // Add active class to selected tab and pane
-    document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
-    document.getElementById(`${tabId}-tab`).classList.add('active');
+    const selectedTab = document.querySelector(`[data-tab="${tabId}"]`);
+    const selectedPane = document.getElementById(`${tabId}-tab`);
+    
+    if (selectedTab) {
+        selectedTab.classList.add('active');
+    }
+    
+    if (selectedPane) {
+        selectedPane.classList.add('active');
+    }
     
     // Load statistics when switching to stats tab
     if (tabId === 'stats') {

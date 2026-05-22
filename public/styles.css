@@ -74,6 +74,8 @@ body {
     align-items: center;
     padding: 20px 0;
     margin-bottom: 40px;
+    position: relative;
+    z-index: 10;
 }
 
 .logo {
@@ -860,6 +862,8 @@ textarea:focus {
     display: flex;
     gap: 8px;
     flex-wrap: wrap;
+    position: relative;
+    z-index: 20;
 }
 
 .nav-tab {
@@ -872,6 +876,9 @@ textarea:focus {
     transition: all 0.3s ease;
     font-weight: 500;
     font-size: 14px;
+    pointer-events: auto;
+    position: relative;
+    z-index: 20;
 }
 
 .nav-tab:hover {
