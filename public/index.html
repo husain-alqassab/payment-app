@@ -21,6 +21,12 @@
                 <span class="trust-icon">🔒</span>
                 <span>Secure & Encrypted</span>
             </div>
+            <nav class="nav-tabs">
+                <button class="nav-tab active" data-tab="create">Create Payment</button>
+                <button class="nav-tab" data-tab="manage">Manage Payments</button>
+                <button class="nav-tab" data-tab="convert">Currency Converter</button>
+                <button class="nav-tab" data-tab="stats">Statistics</button>
+            </nav>
         </header>
 
         <!-- Hero Section -->
@@ -43,12 +49,16 @@
                 <div class="stat-label">Total Processed</div>
             </div>
             <div class="stat-item">
-                <div class="stat-number">99.9%</div>
+                <div class="stat-number" id="successRate">99.9%</div>
                 <div class="stat-label">Success Rate</div>
             </div>
         </div>
 
-        <!-- Main Form Section -->
+        <!-- Tab Content Sections -->
+        <div class="tab-content">
+            <!-- Create Payment Tab -->
+            <div id="create-tab" class="tab-pane active">
+                <!-- Main Form Section -->
         <div class="payment-form-wrapper">
             <div class="form-container">
                 <div class="form-header">
@@ -106,6 +116,8 @@
                                 <option value="JPY">🇯🇵 JPY - Japanese Yen</option>
                                 <option value="CAD">🇨🇦 CAD - Canadian Dollar</option>
                                 <option value="AUD">🇦🇺 AUD - Australian Dollar</option>
+                                <option value="CHF">🇨🇭 CHF - Swiss Franc</option>
+                                <option value="CNY">🇨🇳 CNY - Chinese Yuan</option>
                             </select>
                             <div class="input-border"></div>
                         </div>
@@ -194,6 +206,180 @@
                 <div id="error" class="error hidden">
                     <div class="error-icon">⚠️</div>
                     <div class="error-message"></div>
+                </div>
+            </div>
+        </div>
+            </div>
+
+            <!-- Manage Payments Tab -->
+            <div id="manage-tab" class="tab-pane">
+                <div class="payment-form-wrapper">
+                    <div class="form-container">
+                        <div class="form-header">
+                            <h2>📋 Manage Payments</h2>
+                            <p>Search, view, cancel, or complete payments</p>
+                        </div>
+
+                        <div class="search-section">
+                            <div class="form-group">
+                                <label for="searchPayment">
+                                    <span class="label-icon">🔍</span>
+                                    Search by Payment ID or Customer Email
+                                </label>
+                                <input type="text" id="searchPayment" placeholder="Enter payment ID or email...">
+                                <div class="input-border"></div>
+                            </div>
+                            <button class="btn-submit" onclick="searchPayments()">
+                                <span class="btn-text">Search</span>
+                            </button>
+                        </div>
+
+                        <div id="paymentResults" class="payment-results hidden">
+                            <!-- Payment results will be populated here -->
+                        </div>
+
+                        <div id="paymentDetails" class="payment-details hidden">
+                            <!-- Single payment details will be shown here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Currency Converter Tab -->
+            <div id="convert-tab" class="tab-pane">
+                <div class="payment-form-wrapper">
+                    <div class="form-container">
+                        <div class="form-header">
+                            <h2>💱 Currency Converter</h2>
+                            <p>Convert amounts between supported currencies</p>
+                        </div>
+
+                        <form id="currencyForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="convertAmount">
+                                        <span class="label-icon">💰</span>
+                                        Amount
+                                    </label>
+                                    <input type="number" id="convertAmount" name="amount" required 
+                                           placeholder="0.00" step="0.01" min="0">
+                                    <div class="input-border"></div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="fromCurrency">
+                                        <span class="label-icon">🌍</span>
+                                        From Currency
+                                    </label>
+                                    <select id="fromCurrency" name="fromCurrency" required>
+                                        <option value="">Select Currency</option>
+                                        <option value="USD">🇺🇸 USD - US Dollar</option>
+                                        <option value="EUR">🇪🇺 EUR - Euro</option>
+                                        <option value="GBP">🇬🇧 GBP - British Pound</option>
+                                        <option value="JPY">🇯🇵 JPY - Japanese Yen</option>
+                                        <option value="CAD">🇨🇦 CAD - Canadian Dollar</option>
+                                        <option value="AUD">🇦🇺 AUD - Australian Dollar</option>
+                                        <option value="CHF">🇨🇭 CHF - Swiss Franc</option>
+                                        <option value="CNY">🇨🇳 CNY - Chinese Yuan</option>
+                                    </select>
+                                    <div class="input-border"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="toCurrency">
+                                        <span class="label-icon">🌍</span>
+                                        To Currency
+                                    </label>
+                                    <select id="toCurrency" name="toCurrency" required>
+                                        <option value="">Select Currency</option>
+                                        <option value="USD">🇺🇸 USD - US Dollar</option>
+                                        <option value="EUR">🇪🇺 EUR - Euro</option>
+                                        <option value="GBP">🇬🇧 GBP - British Pound</option>
+                                        <option value="JPY">🇯🇵 JPY - Japanese Yen</option>
+                                        <option value="CAD">🇨🇦 CAD - Canadian Dollar</option>
+                                        <option value="AUD">🇦🇺 AUD - Australian Dollar</option>
+                                        <option value="CHF">🇨🇭 CHF - Swiss Franc</option>
+                                        <option value="CNY">🇨🇳 CNY - Chinese Yuan</option>
+                                    </select>
+                                    <div class="input-border"></div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn-submit">
+                                <span class="btn-text">Convert</span>
+                                <span class="btn-icon">→</span>
+                            </button>
+                        </form>
+
+                        <div id="conversionResult" class="conversion-result hidden">
+                            <div class="result-card">
+                                <h3>Conversion Result</h3>
+                                <div class="conversion-details">
+                                    <div class="conversion-row">
+                                        <span class="conversion-label">Original:</span>
+                                        <span class="conversion-value" id="originalAmount"></span>
+                                    </div>
+                                    <div class="conversion-row">
+                                        <span class="conversion-label">Converted:</span>
+                                        <span class="conversion-value highlight" id="convertedAmount"></span>
+                                    </div>
+                                    <div class="conversion-row">
+                                        <span class="conversion-label">Exchange Rate:</span>
+                                        <span class="conversion-value" id="exchangeRate"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statistics Tab -->
+            <div id="stats-tab" class="tab-pane">
+                <div class="payment-form-wrapper">
+                    <div class="form-container">
+                        <div class="form-header">
+                            <h2>📊 Payment Statistics</h2>
+                            <p>Overview of payment performance and metrics</p>
+                        </div>
+
+                        <button class="btn-submit" onclick="loadStatistics()">
+                            <span class="btn-text">Refresh Statistics</span>
+                        </button>
+
+                        <div id="statisticsResults" class="statistics-results hidden">
+                            <div class="stats-grid">
+                                <div class="stat-card">
+                                    <h4>Total Payments</h4>
+                                    <div class="stat-value" id="statTotalPayments">0</div>
+                                </div>
+                                <div class="stat-card">
+                                    <h4>Total Amount</h4>
+                                    <div class="stat-value" id="statTotalAmount">$0</div>
+                                </div>
+                                <div class="stat-card">
+                                    <h4>Average Amount</h4>
+                                    <div class="stat-value" id="statAverageAmount">$0</div>
+                                </div>
+                            </div>
+
+                            <div class="stats-breakdown">
+                                <h4>Payments by Status</h4>
+                                <div id="statusBreakdown" class="status-breakdown">
+                                    <!-- Status breakdown will be populated here -->
+                                </div>
+                            </div>
+
+                            <div class="stats-breakdown">
+                                <h4>Payments by Currency</h4>
+                                <div id="currencyBreakdown" class="currency-breakdown">
+                                    <!-- Currency breakdown will be populated here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

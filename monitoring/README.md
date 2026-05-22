@@ -30,11 +30,16 @@ The monitoring stack includes:
 - Sufficient resources for monitoring stack
 - Payment application deployed
 
+**⚠️ Developer Sandbox Users:** If you're using OpenShift Developer Sandbox, please read [README-sandbox.md](./README-sandbox.md) for a simplified monitoring configuration that works within sandbox permissions.
+
 ## Quick Start
 
 ### 1. Deploy the Monitoring Stack
 
 ```bash
+# Apply RBAC permissions (required for service discovery)
+oc apply -f monitoring/prometheus-rbac.yaml
+
 # Apply all monitoring configurations
 oc apply -f monitoring/
 

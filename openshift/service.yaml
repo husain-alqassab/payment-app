@@ -4,10 +4,7 @@ metadata:
   name: payment-app
   labels:
     app: payment-app
-  annotations:
-    prometheus.io/scrape: "true"
-    prometheus.io/port: "8080"
-    prometheus.io/path: "/metrics"
+  
 spec:
   type: ClusterIP
   ports:
