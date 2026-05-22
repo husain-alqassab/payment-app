@@ -26,6 +26,7 @@ EXPOSE 8080
 
 # Set environment to production
 ENV NODE_ENV=production
+ENV LOG_LEVEL=info
 
 # Health check for OpenShift
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
