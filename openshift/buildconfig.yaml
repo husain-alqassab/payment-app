@@ -1,0 +1,30 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: payment-app
+  labels:
+    app: payment-app
+spec:
+  source:
+    type: Git
+    git:
+      uri: <YOUR_GIT_REPO_URL>  # Replace with your Git repository URL
+    contextDir: /
+  strategy:
+    type: Docker
+    dockerStrategy:
+      dockerfilePath: Dockerfile
+  output:
+    to:
+      kind: ImageStreamTag
+      name: payment-app:latest
+  triggers:
+  - type: ConfigChange
+  - type: ImageChange
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "250m"
+    limits:
+      memory: "512Mi"
+      cpu: "1000m"

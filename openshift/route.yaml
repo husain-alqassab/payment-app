@@ -1,0 +1,15 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: payment-app
+  labels:
+    app: payment-app
+spec:
+  to:
+    kind: Service
+    name: payment-app
+  port:
+    targetPort: 8080
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect

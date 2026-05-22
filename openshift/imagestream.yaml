@@ -1,0 +1,9 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  name: payment-app
+  labels:
+    app: payment-app
+spec:
+  lookupPolicy:
+    local: false
