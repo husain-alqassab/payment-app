@@ -103,10 +103,11 @@ app.post('/api/payments', (req, res) => {
   const startTime = Date.now();
   
   try {
-    const { customerName, amount, currency, description } = req.body;
+    const { customerName, email, amount, currency, description } = req.body;
 
     logger.info('Payment request received', { 
       customerName, 
+      email,
       amount, 
       currency,
       ip: req.ip 
@@ -134,6 +135,7 @@ app.post('/api/payments', (req, res) => {
     const payment = {
       paymentId: uuidv4(),
       customerName,
+      email: email || null,
       amount: parseFloat(amount),
       currency,
       description: description || 'No description provided',
@@ -146,6 +148,7 @@ app.post('/api/payments', (req, res) => {
     logger.info('Payment generated successfully', { 
       paymentId: payment.paymentId,
       customerName: payment.customerName,
+      email: payment.email,
       amount: payment.amount,
       currency: payment.currency,
       processingTime: Date.now() - startTime

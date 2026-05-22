@@ -3,65 +3,224 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment Generator</title>
+    <title>PayFlow - Secure Payment Generator</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="background-animation"></div>
+    
     <div class="container">
-        <div class="payment-form">
-            <h1>Payment Generator</h1>
-            <p class="subtitle">Generate a new payment request</p>
-            
-            <form id="paymentForm">
-                <div class="form-group">
-                    <label for="customerName">Customer Name *</label>
-                    <input type="text" id="customerName" name="customerName" required 
-                           placeholder="Enter customer name">
-                </div>
-
-                <div class="form-group">
-                    <label for="amount">Amount *</label>
-                    <input type="number" id="amount" name="amount" required 
-                           placeholder="0.00" step="0.01" min="0">
-                </div>
-
-                <div class="form-group">
-                    <label for="currency">Currency *</label>
-                    <select id="currency" name="currency" required>
-                        <option value="">Select currency</option>
-                        <option value="USD">USD - US Dollar</option>
-                        <option value="EUR">EUR - Euro</option>
-                        <option value="GBP">GBP - British Pound</option>
-                        <option value="JPY">JPY - Japanese Yen</option>
-                        <option value="CAD">CAD - Canadian Dollar</option>
-                        <option value="AUD">AUD - Australian Dollar</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="description">Description</label>
-                    <textarea id="description" name="description" rows="3" 
-                              placeholder="Enter payment description (optional)"></textarea>
-                </div>
-
-                <button type="submit" class="btn-submit">Generate Payment</button>
-            </form>
-
-            <div id="result" class="result hidden">
-                <h2>Payment Generated Successfully!</h2>
-                <div class="payment-details">
-                    <p><strong>Payment ID:</strong> <span id="paymentId"></span></p>
-                    <p><strong>Customer:</strong> <span id="resultCustomer"></span></p>
-                    <p><strong>Amount:</strong> <span id="resultAmount"></span></p>
-                    <p><strong>Status:</strong> <span id="resultStatus"></span></p>
-                    <p><strong>Created:</strong> <span id="resultCreated"></span></p>
-                    <p><strong>Expires:</strong> <span id="resultExpires"></span></p>
-                </div>
-                <button class="btn-new" onclick="resetForm()">Generate New Payment</button>
+        <!-- Header Section -->
+        <header class="header">
+            <div class="logo">
+                <div class="logo-icon">💳</div>
+                <span class="logo-text">PayFlow</span>
             </div>
+            <div class="trust-badge">
+                <span class="trust-icon">🔒</span>
+                <span>Secure & Encrypted</span>
+            </div>
+        </header>
 
-            <div id="error" class="error hidden"></div>
+        <!-- Hero Section -->
+        <div class="hero">
+            <h1 class="hero-title">
+                <span class="gradient-text">Generate Payments</span>
+                <br>Instantly & Securely
+            </h1>
+            <p class="hero-subtitle">Create professional payment requests in seconds. Track, manage, and process with ease.</p>
         </div>
+
+        <!-- Stats Section -->
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-number" id="totalPayments">0</div>
+                <div class="stat-label">Payments Generated</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="totalAmount">$0</div>
+                <div class="stat-label">Total Processed</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">99.9%</div>
+                <div class="stat-label">Success Rate</div>
+            </div>
+        </div>
+
+        <!-- Main Form Section -->
+        <div class="payment-form-wrapper">
+            <div class="form-container">
+                <div class="form-header">
+                    <h2>💳 Create Payment Request</h2>
+                    <p>Fill in the details below to generate your payment link</p>
+                </div>
+
+                <form id="paymentForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="customerName">
+                                <span class="label-icon">👤</span>
+                                Customer Name
+                            </label>
+                            <input type="text" id="customerName" name="customerName" required 
+                                   placeholder="John Doe" autocomplete="name">
+                            <div class="input-border"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">
+                                <span class="label-icon">📧</span>
+                                Email Address
+                            </label>
+                            <input type="email" id="email" name="email" 
+                                   placeholder="john@example.com" autocomplete="email">
+                            <div class="input-border"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="amount">
+                                <span class="label-icon">💰</span>
+                                Amount
+                            </label>
+                            <div class="amount-input-wrapper">
+                                <span class="currency-symbol">$</span>
+                                <input type="number" id="amount" name="amount" required 
+                                       placeholder="0.00" step="0.01" min="0">
+                            </div>
+                            <div class="input-border"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="currency">
+                                <span class="label-icon">🌍</span>
+                                Currency
+                            </label>
+                            <select id="currency" name="currency" required>
+                                <option value="">Select Currency</option>
+                                <option value="USD">🇺🇸 USD - US Dollar</option>
+                                <option value="EUR">🇪🇺 EUR - Euro</option>
+                                <option value="GBP">🇬🇧 GBP - British Pound</option>
+                                <option value="JPY">🇯🇵 JPY - Japanese Yen</option>
+                                <option value="CAD">🇨🇦 CAD - Canadian Dollar</option>
+                                <option value="AUD">🇦🇺 AUD - Australian Dollar</option>
+                            </select>
+                            <div class="input-border"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">
+                            <span class="label-icon">📝</span>
+                            Description
+                        </label>
+                        <textarea id="description" name="description" rows="3" 
+                                  placeholder="What's this payment for? (e.g., Invoice #1234)"></textarea>
+                        <div class="input-border"></div>
+                    </div>
+
+                    <div class="form-options">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="sendEmail" name="sendEmail">
+                            <span class="checkbox-custom"></span>
+                            Send payment link to customer email
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="setReminder" name="setReminder">
+                            <span class="checkbox-custom"></span>
+                            Set payment reminder
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn-submit">
+                        <span class="btn-text">Generate Payment</span>
+                        <span class="btn-icon">→</span>
+                        <div class="btn-loading"></div>
+                    </button>
+                </form>
+
+                <!-- Success State -->
+                <div id="result" class="result hidden">
+                    <div class="success-animation">
+                        <div class="success-checkmark">
+                            <div class="check-icon">✓</div>
+                        </div>
+                    </div>
+                    <h2>Payment Generated Successfully!</h2>
+                    <p class="success-message">Your payment request is ready to be shared</p>
+                    
+                    <div class="payment-details-card">
+                        <div class="detail-row">
+                            <span class="detail-label">Payment ID</span>
+                            <span class="detail-value" id="paymentId"></span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Customer</span>
+                            <span class="detail-value" id="resultCustomer"></span>
+                        </div>
+                        <div class="detail-row highlight">
+                            <span class="detail-label">Amount</span>
+                            <span class="detail-value amount" id="resultAmount"></span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Status</span>
+                            <span class="detail-value status" id="resultStatus"></span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Created</span>
+                            <span class="detail-value" id="resultCreated"></span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Expires</span>
+                            <span class="detail-value" id="resultExpires"></span>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn-primary" onclick="copyPaymentLink()">
+                            <span class="btn-icon">🔗</span>
+                            Copy Link
+                        </button>
+                        <button class="btn-secondary" onclick="resetForm()">
+                            <span class="btn-icon">🔄</span>
+                            New Payment
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Error State -->
+                <div id="error" class="error hidden">
+                    <div class="error-icon">⚠️</div>
+                    <div class="error-message"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Instant Generation</h3>
+                <p>Create payment requests in seconds with our streamlined process</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔐</div>
+                <h3>Bank-Level Security</h3>
+                <p>Your data is protected with enterprise-grade encryption</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Real-Time Tracking</h3>
+                <p>Monitor payment status and get instant notifications</p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Made with ❤️ for seamless payments</p>
+        </footer>
     </div>
 
     <script src="script.js"></script>
