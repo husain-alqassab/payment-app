@@ -3,6 +3,41 @@ let totalPayments = 0;
 let totalAmount = 0;
 let currentPaymentId = null;
 
+// Make switchTab globally accessible
+window.switchTab = function(tabId) {
+    console.log('Switching to tab:', tabId);
+    
+    // Remove active class from all tabs and panes
+    document.querySelectorAll('.nav-tab').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    document.querySelectorAll('.tab-pane').forEach(pane => {
+        pane.classList.remove('active');
+    });
+    
+    // Add active class to selected tab and pane
+    const selectedTab = document.querySelector(`[data-tab="${tabId}"]`);
+    const selectedPane = document.getElementById(`${tabId}-tab`);
+    
+    if (selectedTab) {
+        selectedTab.classList.add('active');
+    } else {
+        console.error('Tab button not found:', tabId);
+    }
+    
+    if (selectedPane) {
+        selectedPane.classList.add('active');
+        console.log('Successfully switched to tab:', tabId);
+    } else {
+        console.error('Tab content not found:', tabId);
+    }
+    
+    // Load statistics when switching to stats tab
+    if (tabId === 'stats') {
+        loadStatistics();
+    }
+};
+
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', function() {
     initializeAnimations();
@@ -422,32 +457,7 @@ function initializeTabs() {
     });
 }
 
-function switchTab(tabId) {
-    // Remove active class from all tabs and panes
-    document.querySelectorAll('.nav-tab').forEach(tab => {
-        tab.classList.remove('active');
-    });
-    document.querySelectorAll('.tab-pane').forEach(pane => {
-        pane.classList.remove('active');
-    });
-    
-    // Add active class to selected tab and pane
-    const selectedTab = document.querySelector(`[data-tab="${tabId}"]`);
-    const selectedPane = document.getElementById(`${tabId}-tab`);
-    
-    if (selectedTab) {
-        selectedTab.classList.add('active');
-    }
-    
-    if (selectedPane) {
-        selectedPane.classList.add('active');
-    }
-    
-    // Load statistics when switching to stats tab
-    if (tabId === 'stats') {
-        loadStatistics();
-    }
-}
+
 
 // Currency converter
 function initializeCurrencyConverter() {

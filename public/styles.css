@@ -895,14 +895,18 @@ textarea:focus {
 /* Tab Content */
 .tab-content {
     min-height: 400px;
+    position: relative;
+    z-index: 5;
 }
 
 .tab-pane {
-    display: none;
+    display: none !important;
+    opacity: 0;
 }
 
 .tab-pane.active {
-    display: block;
+    display: block !important;
+    opacity: 1;
     animation: fadeIn 0.3s ease;
 }
 
